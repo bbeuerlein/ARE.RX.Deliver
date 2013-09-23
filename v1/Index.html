@@ -59,7 +59,7 @@
 
 				scanner.scan( function (result) { 
 					self.errorMsg("");
-
+					alert("Getting delivery with barcode: " & result.text)
 					self.getDelivery(result.text);
 
 				}, function (error) { 
@@ -113,13 +113,14 @@
         //    });
         //};
 		
-		self.getDelivery = function() {
+		self.getDelivery = function(id) {
+			
 			 $.ajax({
                 type: "POST",
                 contentType: "application/json",
                 dataType: "text json",
-                url: 'https://wr.arecloudship.com/RX/api/MobileApp/GetDeliveries',
-                data: ko.toJSON(d),
+                url: 'https://wr.arecloudship.com/RX/api/MobileApp/GetDelivery',
+                data: id,
                 success: function (data) {
 					self.errorMsg("");
                     //alert("Upload Successful!");
