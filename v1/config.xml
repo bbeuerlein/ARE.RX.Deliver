@@ -25,6 +25,6 @@
     <preference name="fullscreen"       value="false" />
     <preference name="webviewbounce"    value="false" />
 
-    <icon src="icon.jpg" />
+    <icon src="icon.png" />
     
 </widget>
