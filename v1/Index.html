@@ -73,7 +73,7 @@
 		};
 		
         self.uploadDelivery = function () {
-            var d = ko.toJSON(self.selectedPackage());
+            var d = ko.toJS(self.selectedPackage());
 			$('#dialogue_ConfirmDelivery').hide();
 
             $.ajax({
@@ -114,7 +114,7 @@
         //};
 		
 		self.getDelivery = function(id) {
-			
+			//alert('https://wr.arecloudship.com/RX/actionapi/MobileApp/GetPackage/' + id);
 			 $.ajax({
                 type: "GET",
                 contentType: "application/json",
