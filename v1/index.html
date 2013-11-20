@@ -33,7 +33,9 @@
         var self = this;
 
 		self.selectedPackage = ko.observable();
+		self.selectedPackages = ko.observableArray();
 		self.errorMsg = ko.observable("");
+		self.signature = ko.observable("");
 
 		self.onDeviceReady = function() {
 			self.receivedEvent('deviceready');
@@ -59,7 +61,7 @@
 
 				scanner.scan( function (result) { 
 					self.errorMsg("");
-					//alert("Getting delivery with barcode: " + result.text)
+					alert("Getting delivery with barcode: " + result.text)
 					self.getDelivery(result.text);
 
 				}, function (error) { 
@@ -73,7 +75,10 @@
 		};
 		
         self.uploadDelivery = function () {
-            var d = ko.toJS(self.selectedPackage());
+            var d = {
+				"Receivables": ko.toJS(self.selectedPackages()),
+				"Signature": self.signature()
+			};
 			$('#dialogue_ConfirmDelivery').hide();
 
             $.ajax({
@@ -85,13 +90,21 @@
                 success: function (data) {
 					self.errorMsg("");
                     alert("Upload Successful!");
-					self.selectedPackage(null);
+					//self.selectedPackage(null);
+					self.reset();
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
                     alert("Error transmitting packages... please try again.");
                 }
             });
         };
+		
+		self.reset = function () {
+			self.selectedPackage(null);
+			self.selectedPackages.removeAll();
+			self.signature("");
+			self.errorMsg("");
+		};
 		
         //self.getPackages = function () {
         //    var d = ko.mapping.toJSON(self.scannedPackages());
@@ -124,6 +137,7 @@
 					self.errorMsg("");
                     //alert("Upload Successful!");
 					self.selectedPackage(data);
+					self.selectedPackages.push(data);
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
                     alert("Error getting delivery... please try again.");
@@ -169,18 +183,19 @@
 		<p></p>
 		<label style="color: Red" id="lblScanError" data-bind="text: $root.errorMsg"></label>
 		<p></p>
-		<button id="btnScan" data-bind="click: $root.scanBarcode_deliver">Scan</button>
+		<button id="btnScan" data-bind="click: $root.scanBarcode_deliver" class="btn-primary">Scan</button>
+		<button id="btnScan" data-bind="click: $root.reset" class="btn-warning">Reset</button>
 		
 		<div data-bind="with: $root.selectedPackage, visible: $root.selectedPackage">
-			<label>Recipient</label>
+			<label><b>Recipient</b></label>
 			<label data-bind="text: Recipient"></label>
-			<label>Department</label>
+			<label><b>Department</b></label>
 			<label data-bind="text: Department"></label>
-			<label>Building</label>
+			<label><b>Building</b></label>
 			<label data-bind="text: Building"></label>
 			
 			
-			<button data-bind="click: $root.requestSignature">Deliver</button>
+			<button data-bind="click: $root.requestSignature" class="btn-success">Deliver</button>
 		</div>
 		
 		
@@ -191,14 +206,14 @@
 			<button type="button" class="close" data-dismiss="modal">×</button>
 			<h3>Confirm Receipt</h3>
 		</div>
-		<div class="modal-body" data-bind="with: $root.selectedPackage">
+		<div class="modal-body">
 			<div class="editor-label">
 				<label>Please enter your intials below to mark the packages as delivered:</label>
 			</div>
 			<div class="editor-field">
-				<input data-bind="value: Signature" />
+				<input data-bind="value: $root.signature" />
 			</div>
-			<button data-bind="click: $root.uploadDelivery">Confirm</button>
+			<button data-bind="click: $root.uploadDelivery" class="btn-success">Confirm</button>
 		</div>
 	</div>
 
