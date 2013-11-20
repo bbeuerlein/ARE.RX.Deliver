@@ -35,7 +35,9 @@
 		self.selectedPackage = ko.observable();
 		self.selectedPackages = ko.observableArray();
 		self.errorMsg = ko.observable("");
+		self.statusMsg = ko.observable("");
 		self.signature = ko.observable("");
+		self.manualEntry = ko.observable("");
 
 		self.onDeviceReady = function() {
 			self.receivedEvent('deviceready');
@@ -79,6 +81,7 @@
 				"Signature": self.signature()
 			};
 			$('#dialogue_ConfirmDelivery').hide();
+			self.statusMsg("Uploading " + d.Receivables.length + " package(s)");
 
             $.ajax({
                 type: "POST",
@@ -88,9 +91,10 @@
                 data: ko.toJSON(d),
                 success: function (data) {
 					self.errorMsg("");
-                    alert("Upload Successful!");
+                    //alert("Upload Successful!");
 					//self.selectedPackage(null);
 					self.reset();
+                    self.statusMsg("Upload Successful!");
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
                     alert("Error transmitting packages... please try again.");
@@ -103,6 +107,8 @@
 			self.selectedPackages.removeAll();
 			self.signature("");
 			self.errorMsg("");
+			self.statusMsg("");
+			self.manualEntry("");
 		};
 		
         //self.getPackages = function () {
@@ -126,7 +132,7 @@
         //};
 		
 		self.getDelivery = function(id) {
-			alert("Getting delivery with barcode: " + id);
+			self.statusMsg("Getting delivery with barcode: " + id);
 			//alert('https://wr.arecloudship.com/RX/actionapi/MobileApp/GetPackage/' + id);
 			 $.ajax({
                 type: "GET",
@@ -138,6 +144,7 @@
                     //alert("Upload Successful!");
 					self.selectedPackage(data);
 					self.selectedPackages.push(data);
+					self.statusMsg("Package with tracking number: " + id + "retreived.");
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
                     alert("Error getting delivery... please try again.");
@@ -147,6 +154,13 @@
 		
 		self.requestSignature = function () {
 			$('#dialogue_ConfirmDelivery').show();
+		};
+		
+		self.promptManual = function () {
+			$('#dialogue_ManualEntry').show();
+		};
+		self.processManual = function () {
+			self.getDelivery(self.manualEntry());
 		};
 		
 		//self.refresh = function() {
@@ -180,11 +194,12 @@
 		</div>
 		
 		<label>When you are ready to deliver a package, scan the package's barcode to bring it up for delivery.</label>
+		<button id="btnScan" data-bind="click: $root.reset" class="btn-warning">Reset</button>
 		<p></p>
 		<label style="color: Red" id="lblScanError" data-bind="text: $root.errorMsg"></label>
+		<label style="color: Red" id="lblScanError" data-bind="text: $root.statusMsg"></label>
 		<p></p>
-		<button id="btnScan" data-bind="click: $root.scanBarcode_deliver" class="btn-primary">Scan</button>
-		<button id="btnScan" data-bind="click: $root.reset" class="btn-warning">Reset</button>
+		<button id="btnScan" data-bind="click: $root.scanBarcode_deliver" class="btn-primary">Scan</button> or <button id="btnManual" data-bind="click: $root.promptManual" class="btn-primary">Manual</button>
 		
 		<div data-bind="with: $root.selectedPackage, visible: $root.selectedPackage">
 			<label><b>Recipient</b></label>
@@ -214,6 +229,21 @@
 				<input data-bind="value: $root.signature" />
 			</div>
 			<button data-bind="click: $root.uploadDelivery" class="btn-success">Confirm</button>
+		</div>
+	</div>
+	<div id="dialogue_ManualEntry" class="modal hide">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Manual Entry</h3>
+		</div>
+		<div class="modal-body">
+			<div class="editor-label">
+				<label>Please enter the tracking number as it appears on the label</label>
+			</div>
+			<div class="editor-field">
+				<input data-bind="value: $root.manualEntry" />
+			</div>
+			<button data-bind="click: $root.uploadDelivery" class="btn-success">Get Delivery</button>
 		</div>
 	</div>
 
