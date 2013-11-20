@@ -144,7 +144,7 @@
                     //alert("Upload Successful!");
 					self.selectedPackage(data);
 					self.selectedPackages.push(data);
-					self.statusMsg("Package with tracking number: " + id + "retreived.");
+					self.statusMsg("Package with tracking number: " + id + " retreived.");
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
                     alert("Error getting delivery... please try again.");
@@ -160,6 +160,7 @@
 			$('#dialogue_ManualEntry').show();
 		};
 		self.processManual = function () {
+			$('#dialogue_ManualEntry').hide();
 			self.getDelivery(self.manualEntry());
 		};
 		
@@ -197,7 +198,7 @@
 		<button id="btnScan" data-bind="click: $root.reset" class="btn-warning">Reset</button>
 		<p></p>
 		<label style="color: Red" id="lblScanError" data-bind="text: $root.errorMsg"></label>
-		<label style="color: Red" id="lblScanError" data-bind="text: $root.statusMsg"></label>
+		<label id="lblScanError" data-bind="text: $root.statusMsg"></label>
 		<p></p>
 		<button id="btnScan" data-bind="click: $root.scanBarcode_deliver" class="btn-primary">Scan</button> or <button id="btnManual" data-bind="click: $root.promptManual" class="btn-primary">Manual</button>
 		
@@ -218,7 +219,7 @@
 		
 	<div id="dialogue_ConfirmDelivery" class="modal hide">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
+			<button type="button" class="close" data-dismiss="modal">x</button>
 			<h3>Confirm Receipt</h3>
 		</div>
 		<div class="modal-body">
@@ -233,7 +234,7 @@
 	</div>
 	<div id="dialogue_ManualEntry" class="modal hide">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
+			<button type="button" class="close" data-dismiss="modal">x</button>
 			<h3>Manual Entry</h3>
 		</div>
 		<div class="modal-body">
@@ -243,7 +244,7 @@
 			<div class="editor-field">
 				<input data-bind="value: $root.manualEntry" />
 			</div>
-			<button data-bind="click: $root.uploadDelivery" class="btn-success">Get Delivery</button>
+			<button data-bind="click: $root.processManual" class="btn-success">Get Delivery</button>
 		</div>
 	</div>
 
