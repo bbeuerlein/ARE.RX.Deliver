@@ -144,7 +144,7 @@
                     //alert("Upload Successful!");
 					self.selectedPackage(data);
 					self.selectedPackages.push(data);
-					self.statusMsg("Package with tracking number: " + id + " retreived.");
+					self.statusMsg("Package with tracking number: " + id + " retreived. Total packages: " + self.selectedPackages().length);
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
                     alert("Error getting delivery... please try again.");
