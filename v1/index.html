@@ -61,7 +61,6 @@
 
 				scanner.scan( function (result) { 
 					self.errorMsg("");
-					alert("Getting delivery with barcode: " + result.text)
 					self.getDelivery(result.text);
 
 				}, function (error) { 
@@ -127,6 +126,7 @@
         //};
 		
 		self.getDelivery = function(id) {
+			alert("Getting delivery with barcode: " + result.text);
 			//alert('https://wr.arecloudship.com/RX/actionapi/MobileApp/GetPackage/' + id);
 			 $.ajax({
                 type: "GET",
