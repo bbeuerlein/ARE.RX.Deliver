@@ -70,6 +70,7 @@
 					self.errorMsg("Scanning failed: " + error);
 				} );
 			} catch (ex) {
+				self.statusMsg("");
 				console.log(ex.message);
 				self.errorMsg(ex.message);
 			}
@@ -80,7 +81,7 @@
 				"Receivables": ko.toJS(self.selectedPackages()),
 				"Signature": self.signature()
 			};
-			$('#dialogue_ConfirmDelivery').hide();
+			$('#dialogue_ConfirmDelivery').modal('hide');
 			self.statusMsg("Uploading " + d.Receivables.length + " package(s)");
 
             $.ajax({
@@ -97,6 +98,7 @@
                     self.statusMsg("Upload Successful!");
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
+					self.statusMsg("");
                     alert("Error transmitting packages... please try again.");
 					try {
                         var response = jQuery.parseJSON(jqHXR.responseText);
@@ -155,6 +157,7 @@
 					self.statusMsg("Package with tracking number: " + id + " retreived. Total packages: " + self.selectedPackages().length);
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
+					self.statusMsg("");
 					try {
                         var response = jQuery.parseJSON(jqHXR.responseText);
                         self.errorMsg(response.ExceptionMessage);
@@ -172,17 +175,17 @@
 			$('#dialogue_ConfirmDelivery').modal('show');
 		};
 		self.hideSignature = function () {
-			$('#dialogue_ConfirmDelivery').modal('show');
+			$('#dialogue_ConfirmDelivery').modal('hide');
 		};
 		
 		self.promptManual = function () {
 			$('#dialogue_ManualEntry').modal('show');
 		};
 		self.hideManual = function () {
-			$('#dialogue_ManualEntry').modal('show');
+			$('#dialogue_ManualEntry').modal('hide');
 		};
 		self.processManual = function () {
-			$('#dialogue_ManualEntry').hide();
+			$('#dialogue_ManualEntry').modal('hide');
 			self.getDelivery(self.manualEntry());
 		};
 		
