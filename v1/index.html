@@ -98,7 +98,14 @@
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
                     alert("Error transmitting packages... please try again.");
-					self.errorMsg("Error transmitting packages... please try again.");
+					try {
+                        var response = jQuery.parseJSON(jqHXR.responseText);
+                        self.errorMsg(response.ExceptionMessage);
+                    }
+                    catch (e) {
+                        self.errorMsg(jqHXR.responseText);
+                    }
+					//self.errorMsg("Error transmitting packages... please try again.");
                 }
             });
         };
@@ -148,18 +155,31 @@
 					self.statusMsg("Package with tracking number: " + id + " retreived. Total packages: " + self.selectedPackages().length);
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
-					self.errorMsg(jqHXR.responseText);
+					try {
+                        var response = jQuery.parseJSON(jqHXR.responseText);
+                        self.errorMsg(response.ExceptionMessage);
+                    }
+                    catch (e) {
+                        self.errorMsg(jqHXR.responseText);
+                    }
+					//self.errorMsg(jqHXR.responseText);
                     alert("Error getting delivery... please try again.");
                 }
             });
 		};
 		
 		self.requestSignature = function () {
-			$('#dialogue_ConfirmDelivery').show();
+			$('#dialogue_ConfirmDelivery').modal('show');
+		};
+		self.hideSignature = function () {
+			$('#dialogue_ConfirmDelivery').modal('show');
 		};
 		
 		self.promptManual = function () {
-			$('#dialogue_ManualEntry').show();
+			$('#dialogue_ManualEntry').modal('show');
+		};
+		self.hideManual = function () {
+			$('#dialogue_ManualEntry').modal('show');
 		};
 		self.processManual = function () {
 			$('#dialogue_ManualEntry').hide();
