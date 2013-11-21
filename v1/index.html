@@ -98,6 +98,7 @@
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
                     alert("Error transmitting packages... please try again.");
+					self.errorMsg("Error transmitting packages... please try again.");
                 }
             });
         };
@@ -147,6 +148,7 @@
 					self.statusMsg("Package with tracking number: " + id + " retreived. Total packages: " + self.selectedPackages().length);
                 },
                 error: function (jqHXR, textStatus, errorThrown) {
+					self.errorMsg(jqHXR.responseText);
                     alert("Error getting delivery... please try again.");
                 }
             });
@@ -195,12 +197,12 @@
 		</div>
 		
 		<label>When you are ready to deliver a package, scan the package's barcode to bring it up for delivery.</label>
-		<button id="btnScan" data-bind="click: $root.reset" class="btn-warning">Reset</button>
+		<button id="btnScan" data-bind="click: $root.reset" class="btn-warning btn-large">Reset</button>
 		<p></p>
 		<label style="color: Red" id="lblScanError" data-bind="text: $root.errorMsg"></label>
 		<label id="lblScanError" data-bind="text: $root.statusMsg"></label>
 		<p></p>
-		<button id="btnScan" data-bind="click: $root.scanBarcode_deliver" class="btn-primary">Scan</button> or <button id="btnManual" data-bind="click: $root.promptManual" class="btn-primary">Manual</button>
+		<button id="btnScan" data-bind="click: $root.scanBarcode_deliver" class="btn-primary btn-large">Scan</button> or <button id="btnManual" data-bind="click: $root.promptManual" class="btn-primary btn-large">Manual</button>
 		
 		<div data-bind="with: $root.selectedPackage, visible: $root.selectedPackage">
 			<label><b>Recipient</b></label>
@@ -211,7 +213,7 @@
 			<label data-bind="text: Building"></label>
 			
 			
-			<button data-bind="click: $root.requestSignature" class="btn-success">Deliver</button>
+			<button data-bind="click: $root.requestSignature" class="btn-success btn-large">Deliver</button>
 		</div>
 		
 		
@@ -229,7 +231,7 @@
 			<div class="editor-field">
 				<input data-bind="value: $root.signature" />
 			</div>
-			<button data-bind="click: $root.uploadDelivery" class="btn-success">Confirm</button>
+			<button data-bind="click: $root.uploadDelivery" class="btn-success btn-large">Confirm</button>
 		</div>
 	</div>
 	<div id="dialogue_ManualEntry" class="modal hide">
@@ -244,7 +246,7 @@
 			<div class="editor-field">
 				<input data-bind="value: $root.manualEntry" />
 			</div>
-			<button data-bind="click: $root.processManual" class="btn-success">Get Delivery</button>
+			<button data-bind="click: $root.processManual" class="btn-success btn-large">Get Delivery</button>
 		</div>
 	</div>
 
