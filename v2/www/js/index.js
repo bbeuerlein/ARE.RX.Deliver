@@ -156,6 +156,7 @@ function appViewModel() {
 				}
 				//self.errorMsg(jqHXR.responseText);
 				alert("Error getting delivery... please try again.");
+				alert(self.errorMsg());
 			}
 		});
 	};
