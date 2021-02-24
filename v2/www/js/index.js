@@ -77,7 +77,7 @@ function appViewModel() {
 			type: "POST",
 			contentType: "application/json",
 			dataType: "text json",
-			url: 'https://wr.arecloudship.com/RX/actionapi/MobileApp/Deliver',
+			url: 'https://wr.shipstoresoftware.com/RX/actionapi/MobileApp/Deliver',
 			data: ko.toJSON(d),
 			success: function (data) {
 				self.errorMsg("");
@@ -117,7 +117,7 @@ function appViewModel() {
 	//        type: "POST",
 	//        contentType: "application/json",
 	//        dataType: "text json",
-	//        url: 'https://wr.arecloudship.com/RX/api/MobileApp/GetDeliveries',
+	//        url: 'https://wr.shipstoresoftware.com/RX/api/MobileApp/GetDeliveries',
 	//        data: ko.mapping.toJSON(d),
 	//        success: function (data) {
 	//			self.errorMsg("");
@@ -132,12 +132,12 @@ function appViewModel() {
 	
 	self.getDelivery = function(id) {
 		self.statusMsg("Getting delivery with barcode: " + id);
-		//alert('https://wr.arecloudship.com/RX/actionapi/MobileApp/GetPackage/' + id);
+		//alert('https://wr.shipstoresoftware.com/RX/actionapi/MobileApp/GetPackage/' + id);
 		 $.ajax({
 			type: "GET",
 			contentType: "application/json",
 			dataType: "text json",
-			url: 'https://wr.arecloudship.com/RX/actionapi/MobileApp/GetPackage/' + id,
+			url: 'https://wr.shipstoresoftware.com/RX/actionapi/MobileApp/GetPackage/' + id,
 			success: function (data) {
 				self.errorMsg("");
 				//alert("Upload Successful!");
