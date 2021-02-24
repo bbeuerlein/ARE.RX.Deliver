@@ -1,11 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="wr.arecloudship.cloudrx" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="wr.arecloudship.cloudrx" version="9.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+    <feature name="BarcodeScanner">
+        <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
+    </feature>
     <name>CloudRx Delivery</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Delivery application developed specifically for the Applied Resources Cloud RX system.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+        Applied Resources
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -15,9 +18,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="icon.png" />
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
-    <feature name="BarcodeScanner">
-        <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
-    </feature>
+    <preference name="phonegap-version" value="cli-8.0.0" />
 </widget>

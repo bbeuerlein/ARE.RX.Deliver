@@ -13,7 +13,8 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.3.0",
-    "phonegap-plugin-barcodescanner": "6.0.3"
+    "phonegap-plugin-barcodescanner": "6.0.3",
+    "cordova-android-support-gradle-release": "3.0.1"
 };
 // BOTTOM OF METADATA
 });
