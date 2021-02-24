@@ -15,6 +15,9 @@ xmlns:gap="http://phonegap.com/ns/1.0">
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="phonegap-plugin-barcodescanner" spec="6" />
+	<plugin name="cordova-android-support-gradle-release" source="npm">
+		<variable name="ANDROID_SUPPORT_VERSION" value="28.0.0"/>
+	</plugin>
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -30,4 +33,5 @@ xmlns:gap="http://phonegap.com/ns/1.0">
         <allow-intent href="itms-apps:*" />
     </platform>
     <icon src="icon.png" />
+	<preference name="phonegap-version" value="cli-9.0.0" />
 </widget>
